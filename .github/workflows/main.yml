@@ -17,7 +17,7 @@ jobs:
     
     # steps는 명령어들의 집합
     # uses는 이미 만들어진 action을 사용, run은 명령어를 실행하는 것
-    step:
+    steps:
     
     #1. 가상머신으로 checkout
     - uses: actions/checkout@v2
