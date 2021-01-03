@@ -1,0 +1,11 @@
+baseurl = "http://kimgs0725.github.io"
+title = "GangSu Blog"
+languageCode = "ko-KR"
+
+theme = "hugo-hello-programmer-theme"
+
+paginate = 2
+
+[author]
+    name = "gyeongsoo kim"
+    email = "kimgs0725@gmail.com"

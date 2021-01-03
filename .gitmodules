@@ -1,3 +1,6 @@
 [submodule "themes/hugo-hello-programmer-theme"]
 	path = themes/hugo-hello-programmer-theme
 	url = https://github.com/lubang/hugo-hello-programmer-theme
+[submodule "themes/tranquilpeak"]
+	path = themes/tranquilpeak
+	url = https://github.com/kakawait/hugo-tranquilpeak-theme.git
