@@ -1,0 +1,46 @@
+# This is a basic workflow to help you get started with Actions
+
+name: deploy hugo site
+
+# Controls when the action will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    # steps는 명령어들의 집합
+    # uses는 이미 만들어진 action을 사용, run은 명령어를 실행하는 것
+    step:
+    
+    #1. 가상머신으로 checkout
+    - uses: actions/checkout@v2
+      
+    #2. submodule로 등록한 theme checkout
+    - name: Checkout submodules
+      shell: bash
+      run: |
+        git submodule update --recursive
+    
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v2
+      with:
+        hugo-version: 'latest'
+        extended: true
+        
+    - name: Build Hugo Site
+      run: |
+        hugo --minify
+        
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_branch: master
+        publish_dir: ./public
