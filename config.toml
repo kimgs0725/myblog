@@ -22,7 +22,7 @@ canonifyurls = true
   job = "Development"
   location = "Seoul, Korea"
   # Your Gravatar email. Overwrite `author.picture` everywhere in the blog
-  gravatarEmail = "actumn814@gmail.com"
+  gravatarEmail = "kimgs0725@gmail.com"
   # Your profile picture
   # Overwritten by your gravatar image if `author.gravatarEmail` is filled
   picture = "https://cdn1.iconfinder.com/data/icons/ninja-things-1/1772/ninja-simple-512.png"
