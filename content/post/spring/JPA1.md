@@ -1,7 +1,6 @@
 ---
 title: "JPA1 - JPA 소개"
 date: 2021-02-07T15:56:55+09:00
-draft: true
 categories:
 - spring
 tags:
