@@ -1,5 +1,5 @@
 ---
-title: "JPA1 - JPA 소개"
+title: "JPA1 - JPA 탄생배경"
 date: 2021-02-07T15:56:55+09:00
 categories:
 - spring
