@@ -61,7 +61,7 @@ canonifyurls = true
   identifier = "about"
   name = "About"
   pre = "<i class=\"sidebar-button-icon fa fa-lg fa-question\"></i>"
-  url = "/about/about"
+  url = "/about"
 
 [[menu.links]]
   weight = 1
@@ -184,11 +184,11 @@ canonifyurls = true
   [params.header.rightLink]
     class = ""
     icon = ""
-    url = "/about/about"
+    url = "/about"
 
   # Customize link of author avatar in sidebar
   [params.sidebar.profile]
-    url = "/about/about"
+    url = "/about"
 
   # Customize copyright value "© 2017 <CUSTOMIZATION>. All Rights Reserved"
   # [params.footer]
