@@ -1,6 +1,12 @@
 ---
 title: "JPA2 - JPA 소개"
 date: 2021-02-15T23:42:58+09:00
+categories:
+- spring
+tags:
+- spring
+- jpa
+- database
 ---
 
 [이전 포스트]({{< relref "./JPA1.md" >}})에서 말한 문제들을 다시 복습하자면
