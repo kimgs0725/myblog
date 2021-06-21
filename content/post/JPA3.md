@@ -4,12 +4,8 @@ date: 2021-06-18T20:05:24+09:00
 categories:
 - spring
 tags:
-- spring
 - jpa
 - database
-keywords:
-- tech
-thumbnailImage: https://innovativetechin.com/Uploads/Images/Icon/1586404155icon.png
 ---
 
 영속성 컨텍스트(Persistence Context)는 **엔티티를 영구 저정하는 환경**을 의미합니다. 좀 더 쉽게 풀어보자면 DB를 통해 얻어온 데이터들을 저장하는 내부 저장소가 있음을 의미합니다. 내부 저장소가 있음으로서 얻는 이점이 있기 때문입니다.
@@ -146,7 +142,7 @@ em.persist(memberA);
 em.persist(memberB);
 em.persist(memberC);
 
-// 이 시점에서 멤버 조회 쿼리를 날리면 DB에는 조회가 되지 않는다. (아직 쓰기 지연 저장소에 있는 상태)
-// 이는 시멘틱이 맞지 않기 때문에, JPQL을 날리면 그냥 플러시를 하게 된다.
 List<Member> members = em.createQuery("select m from Member m", Member.class).getResultList();
 ```
+
+여기서 왜 JPQL(일단 SQL 쿼리라고 생각하자) 쿼리를 날릴 때에도 플러시가 수행되는지 의아해 할 것입니다. 이는 JPA 시멘틱와도 연관지어서 얘기할 수 있습니다. JPA는 **데이터를 리스트에 저장**하듯 시멘틱이 진행이 됩니다. 하지만 여태 애기한 것을 떠올려 보십시오. memberA, B, C는 전부 쓰기 지연 저장소에 저장하고 있는 반면에, JPQL은 DB로 직접 쿼리를 날리게 됩니다. DB에는 memberA, B, C에 대한 내용이 없을테니 JPQL의 쿼리는 빈 리스트를 반환하게 될 것입니다. 하지만 이는 JPA의 시멘틱에 맞지 않는 결과를 가지게 됩니다.(리스트에 저장했는데, 조회할려니까 조회가 안되네??) 그래서 JPQL 쿼리를 날릴 때에도 쓰기 지연 저장소에 있는 쿼리문을 날리게 된 것입니다.

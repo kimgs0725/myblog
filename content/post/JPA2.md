@@ -4,7 +4,6 @@ date: 2021-02-15T23:42:58+09:00
 categories:
 - spring
 tags:
-- spring
 - jpa
 - database
 ---
