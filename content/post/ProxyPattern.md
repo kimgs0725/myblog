@@ -80,3 +80,97 @@ ProxyTextFile 클래스에서는 객체를 생성할 때에 별다른 동작을 
 #### 보호 프록시
 
 보호 프록시는 프록시 객체가 사용자의 실제 객체에 대한 접근을 제어합니다.
+
+다음과 같은 요구사항이 들어왔다고 가정해봅니다.
+
+> 인사팀에서 인서정보에 대한 데이터 접근을 직책 단위로 세분화할려고 합니다. 원래는 인사팀만 사용한 부분을 다른 직책의 사람들에게도 제공을 해야합니다. 그래서 직책별로 보여줄 수 있는 데이터 접근 레벨을 결정할려고 합니다.
+
+그럼 기존 코드를 한번 살펴보겠습니다.
+
+```java
+enum GRADE {
+    Staff, Manager, VicePresident
+}
+
+interface Employee {
+    String getName();
+    GRADE getGrade();
+    String getInformation(Employee viewer);
+}
+
+class NormalEmployee implements Employee {
+    private String name;
+    private GRADE grade;
+
+    public NormalEmployee(String name, GRADE grade) {
+        this.name = name;
+        this.grade = grade;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public GRADE getGrade() {
+        return grade;
+    }
+
+    // 기본적으로 자신의 인사정보는 누구나 열람할 수 있도록 되어있습니다.
+    @Override
+    public String getInformation(Employee viewer) {
+        return "Display " + getGrade().name() + " '" + getName() + "' personnel information.";
+    }
+}
+```
+
+현재 상태에서 Employee 객체를 통해 getInformation 메서드를 통해 정보를 조회할 수 있습니다. 하지만 요구사항에 직책별로 보여줄 수 있는 접근 레벨을 설정해야합니다. 그래서 보호 프록시를 통해 접근 레벨을 설정해줄 수 있습니다.
+
+```java
+class ProtectedEmployee implements Employee {
+    private Employee employee;
+
+    public ProtectedEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    @Override
+    public String getName() {
+        return employee.getName();
+    }
+
+    @Override
+    public GRADE getGrade() {
+        return employee.getGrade();
+    }
+
+    // 조회할려는 viewer에서 getGrade를 통해 직책을 조회한다.
+    // 그리고 나서 현재 Employee를 조회할 레벨이 되는지 검사한다.
+    @Override
+    public String getInformation(Employee viewer) {
+        if (this.employee.getGrade() == viewer.getGrade() &&
+            this.employee.getName().equals(viewer.getName())) {
+            return this.employee.getInformation();
+        }
+
+        switch (viewer.getGrade()) {
+            case VicePresident:
+                if (this.employee.getGrade() == GRADE.Manager ||
+                    this.employee.getGrade() == GRADE.Staff) {
+                    return this.employee.getInformation(viewer);
+                }
+            case Manager:
+                if (this.employee.getGrade() == GRADE.Staff) {
+                    return this.employee.getInformation(viewer);
+                }
+            case Staff:
+            default:
+                throw new NotAuthorizedException();
+        }
+        return "";
+    }
+}
+```
+#### reference
+[JDM's Blog - 프록시 패턴](https://jdm.kr/blog/235)
