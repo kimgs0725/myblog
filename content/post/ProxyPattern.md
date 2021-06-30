@@ -1,7 +1,6 @@
 ---
 title: "프록시 패턴"
 date: 2021-06-22T22:15:56+09:00
-draft: true
 categories:
 - design pattern
 tags:
@@ -172,5 +171,11 @@ class ProtectedEmployee implements Employee {
     }
 }
 ```
+
+이 예제에서만 아니라 프록시 패턴은 다양한 프레임워크에서 적용되고 있습니다. 대표적으로 JPA의 지연 로딩(Lazy Loading)을 들 수 있습니다. 외래키로 연결되어 있는 임의의 두 엔티티가 있다고 가정할 때, 엔티티에서 다른 엔티티를 조회할려면 엔티티를 조회한 시점에 조인 연산을 통해 다른 엔티티도 가져와야 합니다. 그런데 너무 많은 조인연산이 일어나는 것을 방지하고자 지연 로딩을 사용하게 됩니다. 이 때, 엔티티 내 연관관계를 가진 엔티티 객체는 프록시 객체를 가지게 됩니다. 그래서 실제 해당 엔티티를 조회한 시점에 DB에 쿼리를 날리게 됩니다. 자세한 내용은 해당 [블로그](https://ict-nroo.tistory.com/131)를 참조해주세요.
+
 #### reference
+
 [JDM's Blog - 프록시 패턴](https://jdm.kr/blog/235)
+
+[ict-nroo - [JPA] 프록시란](https://ict-nroo.tistory.com/131)
